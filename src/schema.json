@@ -252,6 +252,13 @@
             "$ref": "#/$defs/SectionName"
           }
         },
+        "paper": {
+          "description": "Page paper size (default \"a4\").",
+          "enum": [
+            "a4",
+            "us-letter"
+          ]
+        },
         "photo-size": {
           "description": "Diameter of the circular photo as a percent of the sidebar width.",
           "allOf": [

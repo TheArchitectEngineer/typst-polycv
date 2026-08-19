@@ -220,7 +220,7 @@
 
   // --- Page setup ---
   set page(
-    paper: "us-letter",
+    paper: "a4",
     margin: (
       left: layout.margin-left,
       right: layout.margin-right,

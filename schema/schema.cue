@@ -143,6 +143,8 @@ package polycv
 	// Render the contact line in the header area (any layout) instead of the
 	// sidebar.
 	"contact-in-header"?: bool
+	// Page paper size (default "a4").
+	"paper"?: "a4" | "us-letter"
 	// Company + location/dates on the title line, position below.
 	"entry-inline-meta"?: bool
 	// Show the dots + vertical line on experience/education entries.

@@ -92,6 +92,7 @@
 ///   section.
 /// - contact-in-header (bool): Render the contact line in the header area
 ///   (any layout) instead of in the sidebar.
+/// - paper (str): Page paper size (default "a4"; e.g. "us-letter").
 /// - body (content): Optional content appended after the CV.
 #let cv(
   name: "",
@@ -159,6 +160,7 @@
   summary-in-header: false,
   contact-in-header: false,
   ats-split: false,
+  paper: "a4",
   body,
 ) = {
   // Month names / section titles come from `locale` (see `_locales`) unless the
@@ -1312,7 +1314,7 @@
 
   // --- Page setup ---
   set page(
-    paper: "us-letter",
+    paper: paper,
     margin: (
       left: layout.margin-left,
       right: layout.margin-right,
