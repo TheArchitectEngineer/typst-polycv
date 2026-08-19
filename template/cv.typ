@@ -18,10 +18,13 @@
 }
 
 #let photo-file = input-str("photo", default: "assets/avatar.svg")
-#let header-band = input-bool("header-band")
-#let header-band-summary = input-bool("header-band-summary")
-#let header-band-contact = input-bool("header-band-contact", default: true)
-#let ats-split = input-bool("ats-split")
+#let photo-size = int(input-str("photo-size", default: "70")) * 1%
+// Single layout switch: "basic" | "ats-split" | "header-band".
+#let layout = input-str("layout", default: "basic")
+#let show-header-band = layout == "header-band"
+#let ats-split = layout == "ats-split"
+#let summary-in-header = input-bool("summary-in-header")
+#let contact-in-header = input-bool("contact-in-header")
 #let entry-inline-meta = input-bool("entry-inline-meta")
 #let show-timeline = input-bool("show-timeline", default: true)
 #let locale = input-str("locale", default: "en")
@@ -42,6 +45,7 @@
 
 #show: cv.with(
   photo: image(photo-file, alt: cd.name, width: 100%, height: 100%, fit: "cover"),
+  photo-size: photo-size,
   name: cd.name,
   headline: cd.at("headline", default: none),
   location: cd.at("location", default: none),
@@ -63,9 +67,9 @@
   hobbies: cd.at("hobbies", default: none),
   references: cd.at("references", default: none),
   publications: cd.at("publications", default: none),
-  show-header-band: header-band,
-  header-band-summary: header-band-summary,
-  header-band-contact: header-band-contact,
+  show-header-band: show-header-band,
+  summary-in-header: summary-in-header,
+  contact-in-header: contact-in-header,
   ats-split: ats-split,
   entry-inline-meta: entry-inline-meta,
   show-timeline: show-timeline,

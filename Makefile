@@ -94,10 +94,10 @@ LAYOUT_PDFS += out/$(_LAYOUT_BASE)-$1.pdf
 
 endef
 
-$(eval $(call LAYOUT_RULE,standard,--input "ats-split=false" --input "header-band=false"))
-$(eval $(call LAYOUT_RULE,header-band-photo,--input "ats-split=false" --input "header-band=true" --input "keywords-lines=3" --input "header-band-summary=true"))
-$(eval $(call LAYOUT_RULE,header-band-photo-sidebar-contact,--input "ats-split=false" --input "header-band=true" --input "keywords-lines=3" --input "header-band-summary=true" --input "header-band-contact=false"))
-$(eval $(call LAYOUT_RULE,ats-split,--input "ats-split=true" --input "header-band=false"))
+$(eval $(call LAYOUT_RULE,standard,--input "layout=basic"))
+$(eval $(call LAYOUT_RULE,header-band-photo,--input "layout=header-band" --input "keywords-lines=3" --input "summary-in-header=true" --input "contact-in-header=true"))
+$(eval $(call LAYOUT_RULE,header-band-photo-sidebar-contact,--input "layout=header-band" --input "keywords-lines=3" --input "summary-in-header=true"))
+$(eval $(call LAYOUT_RULE,ats-split,--input "layout=ats-split"))
 
 # ---------------------------------------------------------------------------
 # Targets
@@ -205,11 +205,11 @@ thumbs: link
 	@$(_STACK) '"out/_app1.png","out/_app2.png","out/_app3.png"' | typst compile - thumbnail-all.png --root . --ppi 120
 	@echo "  layouts -> thumbnail-layouts.png (each shows off different meta options)"
 	@# Standard: the classic two-column look, no options
-	typst compile template/cv.typ "out/_std{p}.png"  --root . --ppi 150 --input data=cv.yml --input header-band=false --input ats-split=false
+	typst compile template/cv.typ "out/_std{p}.png"  --root . --ppi 150 --input data=cv.yml --input layout=basic
 	@# Header band: full-width band with the summary inside it and keywords over 3 lines
-	typst compile template/cv.typ "out/_band{p}.png" --root . --ppi 150 --input data=cv.yml --input header-band=true --input header-band-summary=true --input keywords-lines=3
+	typst compile template/cv.typ "out/_band{p}.png" --root . --ppi 150 --input data=cv.yml --input layout=header-band --input summary-in-header=true --input contact-in-header=true --input keywords-lines=3
 	@# ATS split, in French, with inline entry metadata and no timeline
-	typst compile template/cv.typ "out/_ats{p}.png"  --root . --ppi 150 --input data=cv.yml --input ats-split=true --input locale=fr --input entry-inline-meta=true --input show-timeline=false
+	typst compile template/cv.typ "out/_ats{p}.png"  --root . --ppi 150 --input data=cv.yml --input layout=ats-split --input locale=fr --input entry-inline-meta=true --input show-timeline=false
 	@$(_STACK) '"out/_std1.png","out/_band1.png","out/_ats1.png"' | typst compile - thumbnail-layouts.png --root . --ppi 120
 	rm -f out/_app*.png out/_std*.png out/_band*.png out/_ats*.png
 

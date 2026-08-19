@@ -217,25 +217,13 @@
             "fr"
           ]
         },
-        "ats-split": {
+        "contact-in-header": {
           "type": "boolean",
-          "description": "Two-column ATS-friendly header layout."
+          "description": "Render the contact line in the header area (any layout) instead of the\nsidebar."
         },
         "entry-inline-meta": {
           "type": "boolean",
           "description": "Company + location/dates on the title line, position below."
-        },
-        "header-band": {
-          "type": "boolean",
-          "description": "Full-width header band layout (photo on its left)."
-        },
-        "header-band-contact": {
-          "type": "boolean",
-          "description": "With header-band, keep the contact line in the band (false = sidebar)."
-        },
-        "header-band-summary": {
-          "type": "boolean",
-          "description": "With header-band, render the summary inside the header."
         },
         "keywords-lines": {
           "description": "Number of right-aligned lines for keyword badges (0 = one per line).",
@@ -249,12 +237,32 @@
             }
           ]
         },
+        "layout": {
+          "description": "Header/column layout: \"basic\" (simple header), \"ats-split\" (two-column\nATS-friendly header) or \"header-band\" (full-width band, photo on its left).",
+          "enum": [
+            "basic",
+            "ats-split",
+            "header-band"
+          ]
+        },
         "main-sections": {
           "type": "array",
           "description": "Ordered main-column section keys.",
           "items": {
             "$ref": "#/$defs/SectionName"
           }
+        },
+        "photo-size": {
+          "description": "Diameter of the circular photo as a percent of the sidebar width.",
+          "allOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ]
         },
         "section-icons": {
           "type": "object",
@@ -283,6 +291,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "summary-in-header": {
+          "type": "boolean",
+          "description": "Render the summary inside the header (any layout) instead of as a\nmain-column section."
         }
       },
       "x-tombi-table-keys-order": "schema"

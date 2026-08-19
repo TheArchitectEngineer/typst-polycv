@@ -108,7 +108,7 @@ Presentation is controlled by an optional **`meta:` block** at the top of your d
 meta:
   photo: photo.jpg     # path to your photo (relative to the data file)
   locale: fr           # section titles + month names in French
-  header-band: true    # pick a layout (see below)
+  layout: header-band  # basic | ats-split | header-band (see below)
 cv:
   name: "Jane Smith"
   # ...
@@ -120,13 +120,13 @@ cv:
 
 *Left to right, all from the same data: **Standard** | **Header band** with the summary inside the band | **ATS split** rendered in French with inline entry dates and no timeline.*
 
-| Layout | `meta:` key | Description |
-| ------ | ----------- | ----------- |
-| **Standard** | _(default)_ | Name and headline atop the main column; photo and contact in the tinted sidebar |
-| **Header band** | `header-band: true` | Full-width header: round photo, name, headline and a one-line contact row; no sidebar tint |
-| **ATS split** | `ats-split: true` | Two-column header (photo left, name/headline right), sidebar keeps its tint; friendliest to ATS parsers |
+| Layout | `meta:` value | Description |
+| ------ | ------------- | ----------- |
+| **Basic** | `layout: basic` _(default)_ | Name and headline atop the main column; photo and contact in the tinted sidebar |
+| **Header band** | `layout: header-band` | Full-width header: round photo, name, headline and a one-line contact row; no sidebar tint |
+| **ATS split** | `layout: ats-split` | Two-column header (photo left, name/headline right), sidebar keeps its tint; friendliest to ATS parsers |
 
-Tune the header further: `header-band-summary: true` moves the summary into the header (works with header-band **and** ats-split); `header-band-contact: false` keeps contact in the sidebar instead of the band; `keywords-lines: 3` spreads keyword badges over 3 lines (`0` = one per line).
+Tune the header further (all work in **any** layout): `summary-in-header: true` moves the summary into the header; `contact-in-header: true` moves the contact line into the header instead of the sidebar; `photo-size: 95` sets the photo diameter (percent of sidebar width); `keywords-lines: 3` spreads keyword badges over 3 lines (`0` = one per line).
 
 ### Language
 
@@ -184,7 +184,7 @@ cv:
 
 ### All `meta:` keys
 
-`photo`, `locale` (`en`/`fr`), `header-band`, `header-band-summary`, `header-band-contact`, `ats-split`, `keywords-lines`, `entry-inline-meta` (company + location/dates on the title line), `show-timeline` (dots/line on experience & education), `sidebar-sections`, `main-sections`, `section-titles`, `section-icons`, `skill-order`. Any of these can also be passed on the command line, e.g. `typst compile cv.typ --input header-band=true` (command-line inputs win over `meta:`).
+`photo`, `photo-size`, `locale` (`en`/`fr`), `layout` (`basic`/`ats-split`/`header-band`), `summary-in-header`, `contact-in-header`, `keywords-lines`, `entry-inline-meta` (company + location/dates on the title line), `show-timeline` (dots/line on experience & education), `sidebar-sections`, `main-sections`, `section-titles`, `section-icons`, `skill-order`. Any of these can also be passed on the command line, e.g. `typst compile cv.typ --input layout=header-band` (command-line inputs win over `meta:`).
 
 ## Advanced: template parameters
 

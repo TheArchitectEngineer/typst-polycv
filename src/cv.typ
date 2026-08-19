@@ -87,10 +87,11 @@
 /// - photo-size (ratio): Diameter of the circular photo as a fraction of sidebar width.
 /// - show-header-band (bool): Full-width header band layout; the photo (if
 ///   any) is shown as a circle at the left of the band.
-/// - header-band-summary (bool): With show-header-band or ats-split, render
-///   the summary inside the header instead of the main column.
-/// - header-band-contact (bool): With show-header-band, show the contact
-///   line in the band (true) or keep contact in the sidebar (false).
+/// - summary-in-header (bool): Render the summary in the header area (any
+///   layout: header-band, ats-split or plain), instead of as a main-column
+///   section.
+/// - contact-in-header (bool): Render the contact line in the header area
+///   (any layout) instead of in the sidebar.
 /// - body (content): Optional content appended after the CV.
 #let cv(
   name: "",
@@ -155,8 +156,8 @@
   ),
   section-titles: (:),
   show-header-band: false,
-  header-band-summary: false,
-  header-band-contact: true,
+  summary-in-header: false,
+  contact-in-header: false,
   ats-split: false,
   body,
 ) = {
@@ -1036,17 +1037,17 @@
 
   // --- Effective sidebar sections ---
   // Sections already shown in the header are excluded from the sidebar.
-  let excluded-sections = if show-header-band {
-    ("photo",) + if header-band-contact { ("contact",) } else { () }
-  } else if ats-split {
-    ("photo",)
-  } else { () }
+  let excluded-sections = {
+    // Band/ats-split show the photo in the header, so drop it from the sidebar.
+    let ex = if show-header-band or ats-split { ("photo",) } else { () }
+    // The contact block moves to the header in any layout when requested.
+    if contact-in-header { ex += ("contact",) }
+    ex
+  }
   let effective-sidebar-sections = sidebar-sections.filter(s => (
     s not in excluded-sections
   ))
-  let effective-main-sections = if (
-    (show-header-band or ats-split) and header-band-summary
-  ) {
+  let effective-main-sections = if summary-in-header {
     main-sections.filter(s => s != "summary")
   } else { main-sections }
 
@@ -1083,13 +1084,13 @@
           }
         ],
       )
-      #if header-band-summary and summary != none [
+      #if summary-in-header and summary != none [
         #v(gap.header-band-headline-below)
         #set par(justify: true, leading: 0.65em)
         #show: section-text("summary")
         #summary
       ]
-      #if header-band-contact [
+      #if contact-in-header [
         #v(gap.header-band-headline-below)
         #build-contact-line()
       ]
@@ -1186,11 +1187,17 @@
           }
         ],
       )
-      #if header-band-summary and summary != none [
+      #if summary-in-header and summary != none [
         #pad(left: gap.section-indent)[
           #set par(justify: true, leading: 0.65em)
           #show: section-text("summary")
           #summary
+        ]
+      ]
+      #if contact-in-header [
+        #pad(left: gap.section-indent)[
+          #v(gap.header-headline-below)
+          #build-contact-line()
         ]
       ]
     ]
@@ -1269,11 +1276,15 @@
         ]
         #v(gap.header-headline-below)
         #h(gap.section-indent)
-        #text(
-          font: ff.header-location,
-          size: ts.header-location,
-          weight: fw.header-location,
-        )[#if location != none { location }]
+        #if contact-in-header {
+          build-contact-line()
+        } else {
+          text(
+            font: ff.header-location,
+            size: ts.header-location,
+            weight: fw.header-location,
+          )[#if location != none { location }]
+        }
       ],
       [
         #if keywords != none and keywords.len() > 0 {
@@ -1282,6 +1293,14 @@
         }
       ],
     )
+    #if summary-in-header and summary != none [
+      #v(gap.header-headline-below)
+      #pad(left: gap.section-indent)[
+        #set par(justify: true, leading: 0.65em)
+        #show: section-text("summary")
+        #summary
+      ]
+    ]
 
     #v(gap.header-to-content)
     ] // end if not show-header-band

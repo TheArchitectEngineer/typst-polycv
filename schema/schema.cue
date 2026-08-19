@@ -130,16 +130,19 @@ package polycv
 #CvMeta: {
 	// Path to the profile photo, relative to the .typ file.
 	photo?: string
+	// Diameter of the circular photo as a percent of the sidebar width.
+	"photo-size"?: int & >=0
 	// Language for section titles and month names.
 	locale?: "en" | "fr"
-	// Full-width header band layout (photo on its left).
-	"header-band"?: bool
-	// With header-band, render the summary inside the header.
-	"header-band-summary"?: bool
-	// With header-band, keep the contact line in the band (false = sidebar).
-	"header-band-contact"?: bool
-	// Two-column ATS-friendly header layout.
-	"ats-split"?: bool
+	// Header/column layout: "basic" (simple header), "ats-split" (two-column
+	// ATS-friendly header) or "header-band" (full-width band, photo on its left).
+	"layout"?: "basic" | "ats-split" | "header-band"
+	// Render the summary inside the header (any layout) instead of as a
+	// main-column section.
+	"summary-in-header"?: bool
+	// Render the contact line in the header area (any layout) instead of the
+	// sidebar.
+	"contact-in-header"?: bool
 	// Company + location/dates on the title line, position below.
 	"entry-inline-meta"?: bool
 	// Show the dots + vertical line on experience/education entries.
