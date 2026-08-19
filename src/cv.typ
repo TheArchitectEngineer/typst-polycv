@@ -798,7 +798,7 @@
             #let inst = edu.at("summary", default: edu.at("institution", default: none))
             #if inst != none [ #inst \ ]
             #let loc = edu.at("location", default: none)
-            #let d = format-date(edu.start_date, edu.end_date)
+            #let d = format-date(edu.at("start_date", default: none), edu.at("end_date", default: none))
             #if loc != none or d != "" [
               #text(fill: t.accent)[
                 #loc#if loc != none and d != "" [ · ]#d
@@ -955,7 +955,7 @@
     .enumerate()
     .map(((i, e)) => entry(
       e.at("company", default: e.at("degree", default: "")),
-      format-date(e.start_date, e.end_date),
+      format-date(e.at("start_date", default: none), e.at("end_date", default: none)),
       subtitle: e.at("position", default: none),
       location: e.at("location", default: none),
       summary: e.at("summary", default: e.at("institution", default: none)),
@@ -971,7 +971,7 @@
   let flexible-date(e) = if e.at("date", default: none) != none {
     format-date(e.date, none)
   } else {
-    format-date(e.start_date, e.end_date)
+    format-date(e.at("start_date", default: none), e.at("end_date", default: none))
   }
 
   // Shared renderer for bulleted list sections (awards, volunteering, courses):
