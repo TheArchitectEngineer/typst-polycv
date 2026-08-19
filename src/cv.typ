@@ -846,17 +846,20 @@
           ]
         }
       }
-      #if address != none [
-        \ #v(-4pt)
-        #box(grid(
-          columns: (auto, 1fr),
-          column-gutter: gap.icon-to-text,
-          fa-icon(address-icon),
-          if type(address) == array { address.join(linebreak()) } else {
-            address
-          },
-        ))
-      ]
+      #if address != none {
+        if type(address) == array [
+          \ #v(-4pt)
+          #box(grid(
+            columns: (auto, 1fr),
+            column-gutter: gap.icon-to-text,
+            fa-icon(address-icon),
+            address.join(linebreak()),
+          ))
+        ] else [
+          \ #v(-4pt)
+          #fa-icon(address-icon) #h(gap.icon-to-text-tight) #address
+        ]
+      }
     ],
     skills: () => {
       if skills != none {
