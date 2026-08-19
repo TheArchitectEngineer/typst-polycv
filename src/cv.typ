@@ -531,7 +531,7 @@
             #text(size: ts.header-location * 0.9)[#fa-icon(cfg.icon)]
             #h(gap.icon-to-text-tiny)
             #link(cfg.url-base + profile.username)[
-              #text(size: ts.header-location)[#profile.username]
+              #text(size: ts.header-location)[#(cfg.url-base.replace("https://", "") + profile.username)]
             ]
           ])
         }
@@ -841,7 +841,7 @@
           if cfg != none [
             #fa-icon(cfg.icon) #h(gap.icon-to-text-tight) #link(
               cfg.url-base + profile.username,
-            )[#profile.username]
+            )[#(cfg.url-base.replace("https://", "") + profile.username)]
             #h(gap.icon-to-text)
           ]
         }
