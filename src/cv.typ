@@ -598,18 +598,15 @@
         ))
       }
       [
-        #grid(
-          columns: (1fr, auto),
-          column-gutter: gap.icon-to-text,
-          align: (left + horizon, right + horizon),
-          text(
-            font: ff.entry-text,
-            size: ts.entry-text,
-            weight: fw.entry-title,
-            title,
-          ),
-          meta-parts.join(text(fill: t.accent)[#h(0.4em)·#h(0.4em)]),
-        )
+        // A single-line flow (title + 1fr + meta) rather than a 2-column grid:
+        // the meta still sits flush right, but the line stays one linear text
+        // run in reading order, which ATS parsers handle far better than a table.
+        #text(
+          font: ff.entry-text,
+          size: ts.entry-text,
+          weight: fw.entry-title,
+          title,
+        )#h(1fr)#meta-parts.join(text(fill: t.accent)[#h(0.4em)·#h(0.4em)])
         #if subtitle != none [
           #v(gap.main-entry-date-to-location)
           #text(
@@ -630,9 +627,11 @@
             size: ts.entry-text,
             weight: fw.entry-title,
             title,
-          )#if (
-            subtitle != none
-          ) [, #text(font: ff.entry-text, size: ts.entry-text, weight: fw.entry-position, subtitle)]
+          )
+          #if subtitle != none [
+            #v(gap.main-entry-date-to-location)
+            #text(font: ff.entry-text, size: ts.entry-text, weight: fw.entry-position, subtitle)
+          ]
           #entry-summary
         ],
         [
