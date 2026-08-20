@@ -1340,7 +1340,7 @@
       ))
     },
   )
-  set text(font: ff.body, size: ts.body, weight: fw.body)
+  set text(font: ff.body, size: ts.body, weight: fw.body, lang: locale)
   set par(justify: false, leading: 0.65em)
   show link: set text(fill: t.links)
 
