@@ -95,6 +95,9 @@
 /// - paper (str): Page paper size (default "a4"; e.g. "us-letter").
 /// - hyphenate (bool): Hyphenate justified text (default true). Set false to
 ///   avoid mid-word breaks (soft hyphens), e.g. for stricter ATS parsing.
+/// - scale (float): Scale the text and spacing (default 1.0). Smaller values
+///   shrink fonts and gaps within fixed margins, so more fits per line and
+///   per page (the text reflows tighter).
 /// - body (content): Optional content appended after the CV.
 #let cv(
   name: "",
@@ -164,6 +167,7 @@
   ats-split: false,
   paper: "a4",
   hyphenate: true,
+  scale: 1.0,
   body,
 ) = {
   // Month names / section titles come from `locale` (see `_locales`) unless the
@@ -318,7 +322,20 @@
   )
 
   // --- Computed layout ---
-  let page-width = 8.5in
+  // `scale` shrinks the text and spacing (fonts, gaps) by a factor while the
+  // page margins and content width stay fixed. A smaller scale therefore fits
+  // more per line and more per page: the text reflows tighter, it is not a
+  // photocopy. Ratios (sidebar width, photo scale) are unaffected; em gaps
+  // follow the scaled font.
+  let s = scale
+  let scale-lengths = d => d.pairs().map(
+    ((k, v)) => (k, if type(v) == length { v.abs * s + v.em * 1em } else { v }),
+  ).to-dict()
+  let ts = scale-lengths(ts)
+  let gap = scale-lengths(gap)
+  let tl = scale-lengths(tl)
+  let badge = scale-lengths(badge)
+  let page-width = if paper == "a4" { 210mm } else { 8.5in }
   let content-width = page-width - layout.margin-left - layout.margin-right
   let sidebar-absolute = content-width * layout.sidebar-width
   let sidebar-bg-width = (

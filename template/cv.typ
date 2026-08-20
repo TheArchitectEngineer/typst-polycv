@@ -27,6 +27,7 @@
 #let contact-in-header = input-bool("contact-in-header")
 #let paper = input-str("paper", default: "a4")
 #let hyphenate = input-bool("hyphenate", default: true)
+#let scale = float(input-str("scale", default: "1"))
 #let entry-inline-meta = input-bool("entry-inline-meta")
 #let show-timeline = input-bool("show-timeline", default: true)
 #let locale = input-str("locale", default: "en")
@@ -75,6 +76,7 @@
   ats-split: ats-split,
   paper: paper,
   hyphenate: hyphenate,
+  scale: scale,
   entry-inline-meta: entry-inline-meta,
   show-timeline: show-timeline,
   locale: locale,

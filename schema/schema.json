@@ -275,6 +275,11 @@
             }
           ]
         },
+        "scale": {
+          "type": "number",
+          "description": "Scale text and spacing (default 1.0); smaller values shrink fonts and\ngaps within fixed margins, fitting more content per line and per page.",
+          "exclusiveMinimum": 0
+        },
         "section-icons": {
           "type": "object",
           "description": "Override section FontAwesome icons, keyed by section name.",

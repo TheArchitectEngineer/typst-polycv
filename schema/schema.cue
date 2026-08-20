@@ -147,6 +147,9 @@ package polycv
 	"paper"?: "a4" | "us-letter"
 	// Hyphenate justified text (default true; false avoids mid-word breaks).
 	"hyphenate"?: bool
+	// Scale text and spacing (default 1.0); smaller values shrink fonts and
+	// gaps within fixed margins, fitting more content per line and per page.
+	"scale"?: number & >0
 	// Company + location/dates on the title line, position below.
 	"entry-inline-meta"?: bool
 	// Show the dots + vertical line on experience/education entries.
