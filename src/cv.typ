@@ -93,6 +93,8 @@
 /// - contact-in-header (bool): Render the contact line in the header area
 ///   (any layout) instead of in the sidebar.
 /// - paper (str): Page paper size (default "a4"; e.g. "us-letter").
+/// - hyphenate (bool): Hyphenate justified text (default true). Set false to
+///   avoid mid-word breaks (soft hyphens), e.g. for stricter ATS parsing.
 /// - body (content): Optional content appended after the CV.
 #let cv(
   name: "",
@@ -161,6 +163,7 @@
   contact-in-header: false,
   ats-split: false,
   paper: "a4",
+  hyphenate: true,
   body,
 ) = {
   // Month names / section titles come from `locale` (see `_locales`) unless the
@@ -1340,7 +1343,13 @@
       ))
     },
   )
-  set text(font: ff.body, size: ts.body, weight: fw.body, lang: locale)
+  set text(
+    font: ff.body,
+    size: ts.body,
+    weight: fw.body,
+    lang: locale,
+    hyphenate: if hyphenate { auto } else { false },
+  )
   set par(justify: false, leading: 0.65em)
   show link: set text(fill: t.links)
 

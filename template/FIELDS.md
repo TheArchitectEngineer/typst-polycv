@@ -10,6 +10,7 @@ meta:                                         # Layout/config block; consumed by
   photo-size: <integer >= 0>                  # Diameter of the circular photo as a percent of the sidebar width.
   locale: <"en" | "fr">                       # Language for section titles and month names.
   paper: <"a4" | "us-letter">                 # Page paper size (default "a4").
+  hyphenate: <bool>                           # Hyphenate justified text (default true; false avoids mid-word breaks).
   layout: <"basic" | "ats-split" | "header-band">  # Header/column layout: "basic" (simple header), "ats-split" (two-column ATS-friendly header) or "header-band" (full-width band, photo on its left).
   summary-in-header: <bool>                   # Render the summary inside the header (any layout) instead of as a main-column section.
   contact-in-header: <bool>                   # Render the contact line in the header area (any layout) instead of the sidebar.

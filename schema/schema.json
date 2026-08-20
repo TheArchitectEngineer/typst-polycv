@@ -225,6 +225,10 @@
           "type": "boolean",
           "description": "Company + location/dates on the title line, position below."
         },
+        "hyphenate": {
+          "type": "boolean",
+          "description": "Hyphenate justified text (default true; false avoids mid-word breaks)."
+        },
         "keywords-lines": {
           "description": "Number of right-aligned lines for keyword badges (0 = one per line).",
           "allOf": [

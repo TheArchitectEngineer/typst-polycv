@@ -145,6 +145,8 @@ package polycv
 	"contact-in-header"?: bool
 	// Page paper size (default "a4").
 	"paper"?: "a4" | "us-letter"
+	// Hyphenate justified text (default true; false avoids mid-word breaks).
+	"hyphenate"?: bool
 	// Company + location/dates on the title line, position below.
 	"entry-inline-meta"?: bool
 	// Show the dots + vertical line on experience/education entries.
