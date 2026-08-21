@@ -31,7 +31,7 @@ ORDER = {
     "CV": [
         "name", "headline", "location", "keywords", "email", "phone",
         "address", "summary", "motivation", "values", "hobbies",
-        "references", "profiles", "skills", "experience", "education",
+        "references", "profiles", "skills", "text-blocks", "experience", "education",
         "awards", "involvement", "courses", "publications",
     ],
     "Entry": [
@@ -134,6 +134,7 @@ print("\n".join(emit("CvMeta", 2)))
 print()
 print(fmt(0, "cv:", "CV data."))
 print("\n".join(emit("CV", 2)))
-print()
-print("# SectionName (values for sidebar-sections / main-sections / section-*):")
-print("#   " + " | ".join(DEFS["SectionName"]["enum"]))
+if "SectionName" in DEFS:
+    print()
+    print("# SectionName (values for sidebar-sections / main-sections / section-*):")
+    print("#   " + " | ".join(DEFS["SectionName"]["enum"]))

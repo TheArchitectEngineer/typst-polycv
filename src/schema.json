@@ -171,6 +171,13 @@
           "items": {
             "$ref": "#/$defs/PublicationEntry"
           }
+        },
+        "text-blocks": {
+          "type": "object",
+          "description": "Free-text sidebar/main blocks, keyed by name; place a block by its key\nin sidebar-sections / main-sections.",
+          "additionalProperties": {
+            "$ref": "#/$defs/TextBlock"
+          }
         }
       },
       "x-tombi-table-keys-order": "schema"
@@ -251,9 +258,9 @@
         },
         "main-sections": {
           "type": "array",
-          "description": "Ordered main-column section keys.",
+          "description": "Ordered main-column section keys (a built-in SectionName or a block key).",
           "items": {
-            "$ref": "#/$defs/SectionName"
+            "type": "string"
           }
         },
         "paper": {
@@ -296,9 +303,9 @@
         },
         "sidebar-sections": {
           "type": "array",
-          "description": "Ordered sidebar section keys.",
+          "description": "Ordered sidebar section keys (a built-in SectionName or a text-block key).",
           "items": {
-            "$ref": "#/$defs/SectionName"
+            "type": "string"
           }
         },
         "skill-order": {
@@ -499,25 +506,6 @@
       },
       "x-tombi-table-keys-order": "schema"
     },
-    "SectionName": {
-      "description": "Section keys usable in sidebar-sections / main-sections (either column).",
-      "enum": [
-        "photo",
-        "contact",
-        "skills",
-        "values",
-        "hobbies",
-        "references",
-        "publications",
-        "summary",
-        "motivation",
-        "experience",
-        "education",
-        "awards",
-        "volunteering",
-        "courses"
-      ]
-    },
     "Sender": {
       "type": "object",
       "additionalProperties": false,
@@ -601,6 +589,44 @@
         "network",
         "username"
       ],
+      "x-tombi-table-keys-order": "schema"
+    },
+    "TextBlock": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Section heading. Defaults to the block's key if omitted."
+        },
+        "icon": {
+          "type": "string",
+          "description": "FontAwesome icon shown before the heading (default \"circle-info\")."
+        },
+        "lines": {
+          "type": "array",
+          "description": "Free-text lines: each is a plain string (inline *bold*/_italic_ markup),\nor {subtitle: \"...\"} for a bold sub-heading styled like other sections.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "subtitle": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subtitle"
+                ]
+              }
+            ]
+          }
+        }
+      },
       "x-tombi-table-keys-order": "schema"
     },
     "CVSchema": {

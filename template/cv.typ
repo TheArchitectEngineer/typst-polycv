@@ -66,6 +66,7 @@
   volunteering: cd.at("volunteering", default: none),
   courses: cd.at("courses", default: none),
   skills: cd.at("skills", default: none),
+  text-blocks: cd.at("text-blocks", default: (:)),
   values: cd.at("values", default: none),
   hobbies: cd.at("hobbies", default: none),
   references: cd.at("references", default: none),

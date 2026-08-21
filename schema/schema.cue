@@ -72,6 +72,17 @@ package polycv
 	...
 }
 
+#TextBlock: {
+	// Section heading. Defaults to the block's key if omitted.
+	title?: string
+	// FontAwesome icon shown before the heading (default "circle-info").
+	icon?: string
+	// Free-text lines: each is a plain string (inline *bold*/_italic_ markup),
+	// or {subtitle: "..."} for a bold sub-heading styled like other sections.
+	lines: [...(string | {subtitle: string, ...})]
+	...
+}
+
 // ============================================================================
 // CV Schema
 // ============================================================================
@@ -107,6 +118,9 @@ package polycv
 	// key you like; the key is the icon-independent identifier, the display
 	// heading comes from each group's `title` (default: the key).
 	skills?: {[string]: #SkillGroup}
+	// Free-text sidebar/main blocks, keyed by name; place a block by its key
+	// in sidebar-sections / main-sections.
+	"text-blocks"?: {[string]: #TextBlock}
 	// Professional experience entries.
 	experience?: [...#Entry]
 	// Education entries.
@@ -156,10 +170,10 @@ package polycv
 	"show-timeline"?: bool
 	// Number of right-aligned lines for keyword badges (0 = one per line).
 	"keywords-lines"?: int & >=0
-	// Ordered sidebar section keys.
-	"sidebar-sections"?: [...#SectionName]
-	// Ordered main-column section keys.
-	"main-sections"?: [...#SectionName]
+	// Ordered sidebar section keys (a built-in SectionName or a text-block key).
+	"sidebar-sections"?: [...string]
+	// Ordered main-column section keys (a built-in SectionName or a block key).
+	"main-sections"?: [...string]
 	// Override section display titles, keyed by section name.
 	"section-titles"?: {[#SectionName]: string}
 	// Override section FontAwesome icons, keyed by section name.

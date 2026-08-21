@@ -45,6 +45,10 @@
 /// - skills (dictionary, none): Skill groups keyed by a stable name; each value
 ///   is (title: default key, icon: none, items: string or array).
 /// - skill-order (array, none): Group keys to show, in order (omit key = hide).
+/// - text-blocks (dictionary): Free-text sidebar/main blocks keyed by name;
+///   each value is (title: default key, icon: "circle-info", lines). Each line
+///   is a string, or (subtitle: "...") for a bold sub-heading. Place a block by
+///   its key in sidebar-sections / main-sections.
 /// - values (array, none): Values list.
 /// - hobbies (array, none): Hobbies list.
 /// - references (str, array, none): References text or list.
@@ -118,6 +122,7 @@
   courses: none,
   skills: none,
   skill-order: none,
+  text-blocks: (:),
   values: none,
   hobbies: none,
   references: none,
@@ -1055,6 +1060,30 @@
     volunteering: () => list-section("volunteering", volunteering),
     courses: () => list-section("courses", courses),
   )
+
+  // --- Free-text blocks (cv.text-blocks) ---
+  // User-defined sidebar/main sections: a section title plus free-text lines
+  // rendered as-is (normal weight, inline *bold*/_italic_ markup), placed by
+  // their key in sidebar-sections / main-sections.
+  let block-sidebar = (:)
+  let block-main = (:)
+  for (key, blk) in text-blocks {
+    let icon = blk.at("icon", default: "circle-info")
+    let title = blk.at("title", default: key)
+    // Each line is a plain string, or {subtitle: "..."} for a bold sub-heading
+    // styled like the other sidebar sub-titles (skill-group weight).
+    let content = blk.at("lines", default: ()).map(line => {
+      if type(line) == dictionary and "subtitle" in line {
+        text(weight: fw.skill-group, parse-markup(line.subtitle))
+      } else {
+        parse-markup(line)
+      }
+    }).join(linebreak())
+    block-sidebar.insert(key, () => sidebar-section(icon, title, content))
+    block-main.insert(key, () => main-section(icon, title, content))
+  }
+  let sidebar-renderers = sidebar-renderers + block-sidebar
+  let main-renderers = main-renderers + block-main
 
   // --- Effective sidebar sections ---
   // Sections already shown in the header are excluded from the sidebar.
