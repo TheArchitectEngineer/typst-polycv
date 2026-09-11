@@ -2,11 +2,11 @@
 
 <div align="center">
 
-![polycv - CV and cover-letter preview](https://raw.githubusercontent.com/bbinet/polycv/v0.1.1/thumbnail-all.png)
+![polycv - CV and cover-letter preview](https://raw.githubusercontent.com/bbinet/polycv/v0.2.0/thumbnail-all.png)
 
 **A Typst package for not-a-boring CV - data-driven, fully configurable, two-column layout**
 
-[![Current version](https://img.shields.io/badge/version-0.1.1-blue)](https://github.com/bbinet/polycv)
+[![Current version](https://img.shields.io/badge/version-0.2.0-blue)](https://github.com/bbinet/polycv)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Requires Typst 0.14 or newer](https://img.shields.io/badge/typst-%3E%3D0.14-orange)](https://typst.app)
 
@@ -57,7 +57,7 @@ A data-driven CV and cover letter package for Typst. **You write your resume in 
 ### 1. Create your project
 
 ```sh
-typst init @preview/polycv:0.1.1
+typst init @preview/polycv:0.2.0
 ```
 
 This creates a `polycv/` folder containing your data files (`cv.yml`, `letter.yml`, and their `.toml` equivalents) and the template entrypoints (`cv.typ`, `letter.typ`, `application.typ`). **You edit the data files; the `.typ` files you only compile.**
@@ -116,7 +116,7 @@ cv:
 
 ### Pick a layout
 
-![The standard, header-band and ATS-split layouts side by side](https://raw.githubusercontent.com/bbinet/polycv/v0.1.1/thumbnail-layouts.png)
+![The standard, header-band and ATS-split layouts side by side](https://raw.githubusercontent.com/bbinet/polycv/v0.2.0/thumbnail-layouts.png)
 
 *Left to right, all from the same data: **Standard** | **Header band** with the summary inside the band | **ATS split** rendered in French with inline entry dates and no timeline.*
 
