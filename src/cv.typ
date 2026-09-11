@@ -47,8 +47,8 @@
 /// - skill-order (array, none): Group keys to show, in order (omit key = hide).
 /// - text-blocks (dictionary): Free-text sidebar/main blocks keyed by name;
 ///   each value is (title: default key, icon: "circle-info", lines). Each line
-///   is a string, or (subtitle: "...") for a bold sub-heading. Place a block by
-///   its key in sidebar-sections / main-sections.
+///   is a string, or (subtitle: "...") for a bold sub-heading; bulleted: true
+///   renders a chevron list. Place a block by its key in sidebar/main-sections.
 /// - values (array, none): Values list.
 /// - hobbies (array, none): Hobbies list.
 /// - references (str, array, none): References text or list.
@@ -1074,15 +1074,25 @@
   for (key, blk) in text-blocks {
     let icon = blk.at("icon", default: "circle-info")
     let title = blk.at("title", default: key)
-    // Each line is a plain string, or {subtitle: "..."} for a bold sub-heading
-    // styled like the other sidebar sub-titles (skill-group weight).
-    let content = blk.at("lines", default: ()).map(line => {
-      if type(line) == dictionary and "subtitle" in line {
-        text(weight: fw.skill-group, parse-markup(line.subtitle))
-      } else {
-        parse-markup(line)
-      }
-    }).join(linebreak())
+    let raw-lines = blk.at("lines", default: ())
+    let content = if blk.at("bulleted", default: false) {
+      // Chevron list (like hobbies); a {subtitle} degrades to its text.
+      icon-list(
+        bullet-icon,
+        raw-lines.map(l => if type(l) == dictionary { l.subtitle } else { l }),
+        spacing: gap.sidebar-hobbies-between-items,
+      )
+    } else {
+      // Each line is a plain string, or {subtitle: "..."} for a bold sub-heading
+      // styled like the other sidebar sub-titles (skill-group weight).
+      raw-lines.map(line => {
+        if type(line) == dictionary and "subtitle" in line {
+          text(weight: fw.skill-group, parse-markup(line.subtitle))
+        } else {
+          parse-markup(line)
+        }
+      }).join(linebreak())
+    }
     block-sidebar.insert(key, () => sidebar-section(icon, title, content))
     block-main.insert(key, () => main-section(icon, title, content))
   }

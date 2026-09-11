@@ -80,6 +80,8 @@ package polycv
 	// Free-text lines: each is a plain string (inline *bold*/_italic_ markup),
 	// or {subtitle: "..."} for a bold sub-heading styled like other sections.
 	lines: [...(string | {subtitle: string, ...})]
+	// Render the lines as a chevron list (like hobbies) instead of plain lines.
+	bulleted?: bool
 	...
 }
 

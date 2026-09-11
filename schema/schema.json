@@ -625,6 +625,10 @@
               }
             ]
           }
+        },
+        "bulleted": {
+          "type": "boolean",
+          "description": "Render the lines as a chevron list (like hobbies) instead of plain lines."
         }
       },
       "x-tombi-table-keys-order": "schema"
