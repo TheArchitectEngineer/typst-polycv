@@ -907,12 +907,15 @@
                 ]
               ] \
               #v(0pt)
-              #if type(group.items) == array [
-                #group.items.join(linebreak())
-              ] else [
-                #group.items
-              ] \
-              #v(gap.sidebar-skill-between-items)
+              #if type(group.items) == array {
+                // A list of items renders as a chevron list (like hobbies);
+                // a single string stays inline.
+                icon-list(bullet-icon, group.items, spacing: gap.sidebar-hobbies-between-items)
+                v(gap.sidebar-skill-between-items)
+              } else [
+                #group.items \
+                #v(gap.sidebar-skill-between-items)
+              ]
             ]
           ]
         ]
