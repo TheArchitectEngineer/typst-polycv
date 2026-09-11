@@ -16,12 +16,16 @@
 /// - contact-url-bases (dictionary): Override URL prefixes for contact fields.
 ///   Keys: "email", "linkedin", "github". Values are prepended to the field value.
 /// - theme (dictionary): Override any theme colour. Keys: primary, header,
-///   footer, links, header-bg.
+///   footer, links, header-bg, header-rule.
 /// - text-size (dictionary): Override any font size. Keys: body, name, header, footer.
 /// - font-family (dictionary): Override any font family. Keys: body.
 /// - font-weight (dictionary): Override any font weight. Keys: body, name, header,
 ///   footer, recipient-name, subject, signature.
 /// - body (content): The letter paragraphs.
+/// - locale (str): "en" (default) or "fr"; sets the subject label ("Re:" vs
+///   "Objet :") and the language of the auto date.
+/// - layout (str): "basic" (default, tinted header band) or "header-band"
+///   (clean header, no tint), to match the chosen CV layout.
 #let letter(
   sender: (:),
   recipient: none,
@@ -29,6 +33,8 @@
   subject: none,
   salutation: none,
   closing: [Kind regards],
+  locale: "en",
+  layout: "basic",
   footer-items: ("phone", "email", "linkedin"),
   contact-icons: (:),
   contact-url-bases: (:),
@@ -45,7 +51,8 @@
       header: rgb("#6B6B6B"),
       footer: rgb("#6B6B6B"),
       links: rgb("#1565C0"),
-      header-bg: rgb("#F5F1ED"),
+      header-bg: if layout == "header-band" { none } else { rgb("#F5F1ED") },
+      header-rule: if layout == "header-band" { rgb("#0D47A1") } else { none },
     )
       + theme
   )
@@ -84,6 +91,8 @@
   let gap = (
     name-to-headline: -16pt,
     headline-to-contact: 4pt,
+    contact-to-rule: 10pt,
+    header-rule-width: 2pt,
     header-bottom-pad: 12pt,
     header-to-body: 36pt,
     recipient-to-subject: 10pt,
@@ -156,6 +165,10 @@
     v(gap.name-to-headline)
     v(gap.headline-to-contact)
     contact-line(s)
+    if t.header-rule != none {
+      v(gap.contact-to-rule)
+      line(length: 100%, stroke: gap.header-rule-width + t.header-rule)
+    }
     v(gap.header-bottom-pad)
   }
 
@@ -169,7 +182,16 @@
       if date == none {
         none
       } else if date == "auto" {
-        datetime.today().display("[month repr:long] [day], [year]")
+        let t = datetime.today()
+        if locale == "fr" {
+          let m = (
+            "janvier", "février", "mars", "avril", "mai", "juin", "juillet",
+            "août", "septembre", "octobre", "novembre", "décembre",
+          )
+          "le " + str(t.day()) + " " + m.at(t.month() - 1) + " " + str(t.year())
+        } else {
+          t.display("[month repr:long] [day], [year]")
+        }
       } else {
         date
       },
@@ -178,7 +200,7 @@
 
     // Subject
     if subject != none {
-      text(weight: fw.subject)[Re: #subject]
+      text(weight: fw.subject)[#(if locale == "fr" { "Objet : " } else { "Re: " })#subject]
       v(gap.subject-to-salutation)
     }
 
@@ -228,11 +250,14 @@
       bottom: layout.margin-bottom,
     ),
     footer: build-footer(),
-    background: place(top + left, rect(
-      width: 100%,
-      height: layout.header-bg-height + layout.margin-top,
-      fill: t.header-bg,
-    )),
+    background: if t.header-bg != none {
+      place(top + left, rect(
+        width: 100%,
+        height: layout.header-bg-height + layout.margin-top,
+        fill: t.header-bg,
+        stroke: none,
+      ))
+    },
   )
   set text(font: ff.body, size: ts.body, weight: fw.body)
   set par(justify: true, leading: 0.65em)
