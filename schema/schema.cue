@@ -241,6 +241,13 @@ package polycv
 #Metadata: {
 	// Letter date; a display string or "auto" for today.
 	date?: string | "auto"
+	// Letter language: "en" (default) or "fr" (subject label + auto date).
+	locale?: "en" | "fr"
+	// Header style: "basic" (tinted band) or "header-band" (clean, no tint).
+	layout?: "basic" | "header-band"
+	// Show the page footer (default true); false drops it, e.g. when the
+	// contact details already appear in the header.
+	footer?: bool
 }
 
 #Letter: {

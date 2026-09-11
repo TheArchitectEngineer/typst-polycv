@@ -23,6 +23,9 @@
   subject: ld.content.at("subject", default: none),
   salutation: ld.content.at("salutation", default: none),
   closing: ld.content.at("closing", default: [Kind regards]),
+  locale: ld.at("metadata", default: (:)).at("locale", default: "en"),
+  layout: ld.at("metadata", default: (:)).at("layout", default: "basic"),
+  footer: ld.at("metadata", default: (:)).at("footer", default: true),
 )
 
 #for para in ld.content.at("body", default: ()) {

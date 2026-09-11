@@ -9,6 +9,8 @@
 /// - subject (content, none): Subject line shown as "Re: ...".
 /// - salutation (content, none): Opening salutation line.
 /// - closing (content): Closing phrase before the signature.
+/// - footer (bool): Show the page footer (default true). Set false to drop it,
+///   e.g. when the contact details already appear in the header.
 /// - footer-items (array): Sender fields to show in the footer.
 ///   Supported values: "name", "phone", "email", "linkedin", "github", "address".
 /// - contact-icons (dictionary): Override icon names for contact fields.
@@ -35,6 +37,7 @@
   closing: [Kind regards],
   locale: "en",
   layout: "basic",
+  footer: true,
   footer-items: ("phone", "email", "linkedin"),
   contact-icons: (:),
   contact-url-bases: (:),
@@ -249,7 +252,7 @@
       top: layout.margin-top,
       bottom: layout.margin-bottom,
     ),
-    footer: build-footer(),
+    footer: if footer and footer-items.len() > 0 { build-footer() },
     background: if t.header-bg != none {
       place(top + left, rect(
         width: 100%,

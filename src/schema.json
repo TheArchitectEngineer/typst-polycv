@@ -438,6 +438,24 @@
               "const": "auto"
             }
           ]
+        },
+        "locale": {
+          "description": "Letter language: \"en\" (default) or \"fr\" (subject label + auto date).",
+          "enum": [
+            "en",
+            "fr"
+          ]
+        },
+        "layout": {
+          "description": "Header style: \"basic\" (tinted band) or \"header-band\" (clean, no tint).",
+          "enum": [
+            "basic",
+            "header-band"
+          ]
+        },
+        "footer": {
+          "type": "boolean",
+          "description": "Show the page footer (default true); false drops it, e.g. when the\ncontact details already appear in the header."
         }
       },
       "x-tombi-table-keys-order": "schema"
