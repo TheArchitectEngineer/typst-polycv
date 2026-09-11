@@ -872,10 +872,12 @@
             #h(gap.icon-to-text)
           ]
         }
+        // Profiles render inline; break to a new line for what follows.
+        linebreak()
+        v(gap.sidebar-contact-between-items)
       }
       #if address != none {
         if type(address) == array [
-          \ #v(-4pt)
           #box(grid(
             columns: (auto, 1fr),
             column-gutter: gap.icon-to-text,
@@ -883,7 +885,6 @@
             address.join(linebreak()),
           ))
         ] else [
-          \ #v(-4pt)
           #fa-icon(address-icon) #h(gap.icon-to-text-tight) #address
         ]
       }
