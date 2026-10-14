@@ -60,6 +60,7 @@ jobs:
             --exclude='schema' \
             --exclude='justfile' \
             --exclude='/Makefile' \
+            --exclude='/extras' \
             --exclude='/shell.nix' \
             --exclude='cspell.toml' \
             --exclude='CLAUDE.md' \
