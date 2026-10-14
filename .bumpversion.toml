@@ -63,3 +63,13 @@ replace = "polycv/v{new_version}/thumbnail-all.png"
 filename = "README.md"
 search = "polycv/v{current_version}/thumbnail-layouts.png"
 replace = "polycv/v{new_version}/thumbnail-layouts.png"
+
+[[tool.bumpversion.files]]
+filename = "README.md"
+search = "polycv/blob/v{current_version}/extras/Makefile"
+replace = "polycv/blob/v{new_version}/extras/Makefile"
+
+[[tool.bumpversion.files]]
+filename = "template/README.md"
+search = "polycv/v{current_version}/extras/Makefile"
+replace = "polycv/v{new_version}/extras/Makefile"

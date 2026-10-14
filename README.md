@@ -98,7 +98,7 @@ typst compile letter.typ
 typst compile application.typ        # CV + letter in one PDF
 ```
 
-Your data is **validated as it compiles** - an invalid field stops the build and names it (e.g. `/meta/locale`), everywhere including the web app. An optional [`Makefile`](https://github.com/bbinet/polycv/blob/main/extras/Makefile) is available for local use (`make` builds incrementally, `make watch` live-previews); `FIELDS.md` lists every field. **Bilingual CV?** It's just two files - the prefix before the first `-` picks the template, so name them `cv-en.yml` and `cv-fr.yml` (set `locale` in each, see below); both build automatically. Same for letters (`letter-en.yml`, ...).
+Your data is **validated as it compiles** - an invalid field stops the build and names it (e.g. `/meta/locale`), everywhere including the web app. An optional [`Makefile`](https://github.com/bbinet/polycv/blob/v0.2.0/extras/Makefile) is available for local use (`make` builds incrementally, `make watch` live-previews); `FIELDS.md` lists every field. **Bilingual CV?** It's just two files - the prefix before the first `-` picks the template, so name them `cv-en.yml` and `cv-fr.yml` (set `locale` in each, see below); both build automatically. Same for letters (`letter-en.yml`, ...).
 
 ## Configure from your data (`meta:`)
 
@@ -334,7 +334,7 @@ additions since:
   and `make yaml-reference` (a generated, annotated list of every field)
 - **Per-company customization** via `inherit:` - a variant file overrides only
   what changes and deep-merges over its parent
-- **Incremental Makefiles**, including an optional [one for your own project](https://github.com/bbinet/polycv/blob/main/extras/Makefile),
+- **Incremental Makefiles**, including an optional [one for your own project](https://github.com/bbinet/polycv/blob/v0.2.0/extras/Makefile),
   that rebuild only what changed (and, on a parent edit, only its inheritors)
 
 ## License
