@@ -32,9 +32,15 @@ typst compile letter.typ        # -> letter.pdf
 typst compile application.typ   # CV + letter in one PDF
 ```
 
-An optional `Makefile` is included for local use: `make` builds every
+For local CLI use, an optional `Makefile` automates this: `make` builds every
 `cv*`/`letter*` whose source changed (and, when you edit a base, only the
-variants that inherit it), and `make watch` live-previews them all.
+variants that inherit it), and `make watch` live-previews them all. It isn't
+shipped with the template (it would just be noise in the web app); download it
+into your project if you want it:
+
+```sh
+curl -O https://raw.githubusercontent.com/bbinet/polycv/main/extras/Makefile
+```
 
 ## Bilingual & per-company CVs
 
